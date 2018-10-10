@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+{% include "header.html" %}
+    <body>
+{% include "navbar.html" %}
+        <main role="main">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>Resumo do Backup</h1>
+                </div>
+                <div class="card-body">
+            {% if total > 0 %}
+            <table class="table table-sm table-responsive-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Servidor</th>
+                        <th>Inicio do backup</th>
+                        <th>Término do Backup</th>
+                        <th>Minutos</th>
+                        <th>Caminho</th>
+                    </tr>
+                </thead>
+                <tbody>
+            {% for event in events %}
+                <tr class="{% if event.total_backup < 120 %} table-success{% elif event.total_backup >= 120 and event.total_backup < 300 %} table-warning{% elif event.total_backup >= 300 %} table-danger{% else %} table-default{% endif %}">
+                    <td class="text-truncate"><a class="text-dark" href="{% url 'backupDetails' event.servidor event.ip event.porta %}">{{ event.servidor }}</a></td>
+                    <td><a class="text-dark" href="{% url 'backupDetails' event.servidor event.ip event.porta %}">
+                        {{ event.backup_start|date:"d/m/Y H:i:s" }}</a></td>
+                    <td><a class="text-dark" href="{% url 'backupDetails' event.servidor event.ip event.porta %}">
+                            {{ event.backup_finish|date:"d/m/Y H:i:s"  }}</a></td>
+                    <td class="text-truncate"><a class="text-dark" href="{% url 'backupDetails' event.servidor event.ip event.porta %}">{{ event.total_backup }}</a></td>
+                    <td class="text-truncate"><a class="text-dark" href="{% url 'backupDetails' event.servidor event.ip event.porta %}">{{ event.device_name }}</a></td>                    
+                </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+            <hr/>
+            <p>Você tem {{ total }} servidore{{ total|pluralize }} registrado{{ total|pluralize }}.</p>
+            {% else %}
+                <div class="alert alert-secondary text-center">
+                    Sem eventos cadastrados..
+                </div>
+            {% endif %}
+                </div>
+            </div>
+        </main>
+{% include "footer.html" %}
+    </body>
+</html>
+<!--
+    vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+-->

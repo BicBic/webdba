@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+{% include "header.html" %}
+    <body>
+{% include "navbar.html" %}
+        <main role="main">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>Detalhes do Backup {{ nomeservidor }}</h1>
+                </div>
+                <div class="card-body">
+            {% if total > 0 %}
+            <table class="table table-sm table-responsive-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Banco de Dados</th>
+                        <th>Inicio do backup</th>
+                        <th>Término do Backup</th>
+                        <th>Total</th>
+                        <th>device_name</th>
+                    </tr>
+                </thead>
+                <tbody>
+            {% for event in events %}
+                <tr class="">
+                    <td class="text-truncate">{{ event.database_name }}</td>                    
+                    <td>{{ event.backup_start|date:"d/m/Y H:i:s" }}</td>
+                    <td>{{ event.backup_finish|date:"d/m/Y H:i:s"  }}</td>
+                    <td>{{ event.total_backup }}</td>
+                    <td class="text-truncate">{{ event.device_name }}</td>
+                </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+            <hr/>
+            <p>Você tem {{ total }} backup{{ total|pluralize }} efetuado{{ total|pluralize }} no servidor {{ nomeservidor }}.</p>
+            {% else %}
+                <div class="alert alert-secondary text-center">
+                    Sem eventos cadastrados..
+                </div>
+            {% endif %}
+                </div>
+            </div>
+        </main>
+{% include "footer.html" %}
+    </body>
+</html>
+<!--
+    vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+-->

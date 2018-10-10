@@ -1,0 +1,5 @@
+#!/bin/bash
+set -o xtrace
+echo "Pressione Ctrl+QP para sair sem interromper"
+python3 manage.py runserver 0:8000
+

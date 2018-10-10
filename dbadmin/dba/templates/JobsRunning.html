@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+{% include "header.html" %}
+    <body>
+{% include "navbar.html" %}
+        <main role="main">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>JobsRunning {{ today|date:"d/m/Y H:i:s" }}</h1>
+                </div>
+                <div class="card-body">
+            {% if total > 0 %}
+            <table class="table table-sm table-responsive-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ServerName</th>
+                        <th>Job</th>
+                        <th>Step</th>
+                        <th>MinutesRunning</th>
+                    </tr>
+                </thead>
+                <tbody>
+            {% for event in events %}
+            <tr class="{% if event.MinutesRunning > 0 and event.MinutesRunning < 10 %} table-success{% elif event.MinutesRunning >= 10 and event.MinutesRunning < 30 %} table-warning{% elif event.MinutesRunning >= 30 %} table-danger{% else %} table-default{% endif %}">
+                    <td class="text-truncate">{{ event.ServerName }}</td>                    
+                    <td class="text-truncate">{{ event.Job }}</td>
+                    <td class="text-truncate">{{ event.Step }}</td>
+                    <td>{% if event.MinutesRunning > 0 %} {{ event.MinutesRunning }}{% endif %}</td>
+                </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+            <hr/>
+            <p>Voce tem {{ total }} Job{{ total|pluralize }} em execução.</p>
+            {% else %}
+                <div class="alert alert-secondary text-center">
+                    Nenhum Job em execução no momento.
+                </div>
+            {% endif %}
+                </div>
+            </div>
+        </main>
+{% include "footer.html" %}
+    </body>
+</html>
+<!--
+    vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+-->

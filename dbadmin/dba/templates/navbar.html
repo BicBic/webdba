@@ -1,0 +1,43 @@
+<!-- navbar -->
+<header>
+    <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4 text-muted">
+                    <h4 class="text-white">Sobre</h4>
+                    <p class="text-light">
+                    O &quot;DBAdmin&quot; é uma aplicação escrita
+                    em <strong>Python 3.x</strong> utilizando <strong>Django 2.x</strong> e
+                    <strong>Bootstrap 4.x</strong> rodando em <strong>container docker</strong>.</p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    {% if prod != None %}
+                    <h4 class="text-white">Opções</h4>
+                    <ul class="list-unstyled">
+                        <form method="POST" class="post-form">{% csrf_token %}
+                            <li><input type="checkbox" name="cc_prod" id="id_cc_prod" {% if prod == 1 %} checked {% endif %}><a class="text-white"> Produção</a></li>                            
+                            <li><input type="checkbox" name="cc_dth" id="id_cc_dth" {% if dth == 1 %} checked {% endif %}><a class="text-white"> DEV/TSI/HOM</a></li>
+                            <button type="submit">OK</button>
+                        </form>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+            <span class="navbar-brand d-flex align-items-center">
+                <strong><a class="{% if ambiente == '1' %}text-warning{% elif ambiente == '2' %}text-danger{% else %}text-white{% endif %}" href="/">DBAdmin</a>
+                    {% if ambiente == '1' %} (produção) {% elif ambiente == '2' %} (dev/tsi/hom){% elif ambiente == '3' %} (all servers/instances){% endif %}
+                </strong>
+            </span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+<!--
+    vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+-->

@@ -1,0 +1,50 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="pt_BR">
+{% include "header.html" %}
+    <body>
+{% include "navbar.html" %}
+        <main role="main">
+            <div class="jumbotron rounded-0 text-center div-background">
+                <h1 class="display-5">DBA Events</h1>
+            </div>
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-4 col-md-2">
+                        <a href="{% url 'verBloqueio' %}"><img src="{% static 'new.png' %}" class="img-fluid"/></a><br/>
+                        <h6 class="py-2">Verifica bloqueios</h6>
+                    </div>
+                    <!--
+                    <div class="col-4 col-md-2 offset-md-3">
+                        <a href="#" data-toggle="modal" data-target="#addEvent"><img src="{% static 'new.png' %}" class="img-fluid"/></a><br/>
+                        <h6 class="py-2">Novo Evento</h6>
+                    </div>
+                    -->
+                    <div class="col-4 col-md-2">
+                        <a href="{% url 'JobsRunning' %}"><img src="{% static 'today.png' %}" class="img-fluid"/></a><br/>
+                        <h6 class="py-2">Jobs em execução</h6>
+                    </div>
+                    <div class="col-4 col-md-2">
+                        <a href="{% url 'verErrorlog' %}"><img src="{% static 'all.png' %}" class="img-fluid"/></a><br/>
+                        <h6 class="py-2">Todos os Eventos de Errorlog</h6>
+                    </div>
+                    <div class="col-4 col-md-2">
+                        <a href="{% url 'verbackup' %}"><img src="{% static 'today.png' %}" class="img-fluid"/></a><br/>
+                        <h6 class="py-2">Check Backup</h6>
+                    </div>
+                    <!--
+                    <div class="col-4 col-md-2">
+                        <a href="{% url 'DuplicateIndex' %}"><img src="{% static 'all.png' %}" class="img-fluid"/></a><br/>
+                        <h6 class="py-2">Índices Duplicados</h6>
+                        </div>
+                    </div>
+                    -->
+            </div>
+        </main>
+             <!-- offset-md-3 -->
+{% include "footer.html" %}
+    </body>
+</html>
+<!--
+    vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+-->
